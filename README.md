@@ -16,6 +16,18 @@ Then open http://localhost:8000.
 
 Go to Settings → Pages → Deploy from a branch → `main` / `(root)`. All asset paths are relative, so the site works from the repository subpath (`https://<user>.github.io/<repo>/`).
 
+## Pages
+
+| File | Page |
+|------|------|
+| `index.html` | Home: exam facts and links to each section |
+| `learn.html` | Subjects, topics and video playlists |
+| `practice.html` | Past-question links and sample questions |
+| `mock.html` | Timed sample test |
+| `roadmap.html` | Week-by-week plan with saved ticks |
+
+Each page has its own copy of the header and footer. If you change the navigation, update all five files. `app.js` and `styles.css` are shared, and `app.js` renders only the sections that exist on the current page.
+
 ## Update content
 
 All content lives in `app.js`:

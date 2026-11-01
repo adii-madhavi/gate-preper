@@ -232,10 +232,10 @@ function renderSubjects() {
     more.append(el('li', {}, ext(s.syllabus, 'Official GATE 2027 syllabus (PDF)')));
     s.practice.forEach(p => more.append(el('li', {}, ext(p.url, p.label), el('span', { class: 'provider', text: ' · GATE Overflow' }))));
     root.append(el('details', { class: 'subject' },
-      el('summary', {}, el('h3', { text: s.name }), el('span', { class: 'weight', text: s.weight })),
+      el('summary', {}, el('h2', { text: s.name }), el('span', { class: 'weight', text: s.weight })),
       el('div', { class: 'subject-body' },
-        el('div', {}, el('h4', { text: 'Key topics' }), el('ul', {}, ...s.topics.map(t => el('li', { text: t })))),
-        el('div', {}, el('h4', { text: 'Videos' }), videos, el('h4', { text: 'Syllabus and practice' }), more)
+        el('div', {}, el('h3', { text: 'Key topics' }), el('ul', {}, ...s.topics.map(t => el('li', { text: t })))),
+        el('div', {}, el('h3', { text: 'Videos' }), videos, el('h3', { text: 'Syllabus and practice' }), more)
       )
     ));
   });
@@ -264,7 +264,10 @@ function renderPractice() {
 }
 
 // ---------- Mock test ----------
-const mock = { answers: [], current: 0, endsAt: 0, timer: null };
+const mock = { answers: [], current: 0, endsAt: 0, timer: null, running: false };
+
+// The test lives only in memory, so warn before a page change throws it away.
+addEventListener('beforeunload', e => { if (mock.running) e.preventDefault(); });
 
 function mockIntro() {
   const total = MOCK.reduce((t, q) => t + q.marks, 0);
@@ -281,6 +284,7 @@ function mockStart() {
   mock.answers = MOCK.map(() => null);
   mock.current = 0;
   mock.endsAt = Date.now() + MOCK_MINUTES * 60e3;
+  mock.running = true;
   $('#mock-root').replaceChildren(
     el('div', { class: 'mock-bar' },
       el('p', { class: 'timer', id: 'timer', role: 'timer' }),
@@ -384,6 +388,7 @@ function showAnswer(q, a) {
 
 function mockFinish(timeUp) {
   clearInterval(mock.timer);
+  mock.running = false;
   const results = MOCK.map((q, i) => grade(q, mock.answers[i]));
   const total = MOCK.reduce((t, q) => t + q.marks, 0);
   const score = results.reduce((t, r) => t + r.marks, 0);
@@ -394,7 +399,7 @@ function mockFinish(timeUp) {
     const r = results[i];
     const correct = q.type === 'nat' ? String(q.answer) : q.answer.map(j => `(${'ABCD'[j]}) ${q.options[j]}`).join('; ');
     list.append(el('div', { class: 'result-q' },
-      el('h4', { text: `Q${i + 1}. ${q.s}` }),
+      el('h3', { text: `Q${i + 1}. ${q.s}` }),
       el('p', { text: q.q }),
       el('p', {}, el('span', { class: icon[r.status][0], text: icon[r.status][1] }), document.createTextNode(` · marks: ${+r.marks.toFixed(2)} of ${q.marks}`)),
       el('p', { text: 'Your answer: ' + showAnswer(q, mock.answers[i]) }),
@@ -405,7 +410,7 @@ function mockFinish(timeUp) {
   const again = el('button', { type: 'button', class: 'btn', text: 'Retake the test' });
   again.addEventListener('click', mockStart);
   $('#mock-root').replaceChildren(el('div', { class: 'card' },
-    el('h3', { id: 'result-h', tabindex: '-1', text: timeUp ? 'Time is up – your result' : 'Your result' }),
+    el('h2', { id: 'result-h', tabindex: '-1', text: timeUp ? 'Time is up – your result' : 'Your result' }),
     el('p', { class: 'score', text: `Score: ${+score.toFixed(2)} out of ${total}` }),
     el('p', { text: `${count('correct')} correct · ${count('wrong')} wrong · ${count('unanswered')} not answered. This sample test does not predict your GATE score.` }),
     again, list
@@ -442,7 +447,7 @@ function renderRoadmap() {
       ul.append(el('li', {}, el('label', { for: id }, cb, el('span', { text: t }))));
     });
     list.append(el('li', { class: 'week' + (isCurrent ? ' current' : now > end ? ' past' : '') },
-      el('h3', {}, document.createTextNode(`Week ${wi + 1}: ${w.title}`), isCurrent ? el('span', { class: 'badge', text: 'This week' }) : null),
+      el('h2', {}, document.createTextNode(`Week ${wi + 1}: ${w.title}`), isCurrent ? el('span', { class: 'badge', text: 'This week' }) : null),
       el('p', { class: 'when', text: `${fmt(start)} – ${fmt(end)} · ${w.phase}` }),
       ul
     ));
@@ -458,7 +463,8 @@ function renderRoadmap() {
 // ---------- Init ----------
 renderCountdown();
 setInterval(renderCountdown, 60e3);
-renderSubjects();
-renderPractice();
-mockIntro();
-renderRoadmap();
+// Each page carries only its own container; render whichever is present.
+if ($('#subjects')) renderSubjects();
+if ($('#practice-subject')) renderPractice();
+if ($('#mock-root')) mockIntro();
+if ($('#weeks')) renderRoadmap();
