@@ -1,34 +1,19 @@
+/* Black and red theme. --accent is for red text/links on black; --accent-strong is for red fills behind white text. */
 :root {
-  --bg: #f6f5f1;
-  --surface: #ffffff;
-  --text: #1d2321;
-  --muted: #4f5a57;
-  --line: #d9dcd6;
-  --accent: #1f5f5b;
+  --bg: #0b0b0b;
+  --surface: #161616;
+  --text: #f2f2f2;
+  --muted: #b3b3b3;
+  --line: #2e2e2e;
+  --accent: #ff5c5c;
+  --accent-strong: #c62828;
   --accent-ink: #ffffff;
-  --accent-soft: #e3efed;
-  --ok: #1d6b35;
-  --bad: #a3271f;
-  --warn-soft: #fbf3df;
-  --focus: #c25b00;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #161a19;
-    --surface: #1f2523;
-    --text: #e8ebe9;
-    --muted: #aab4b0;
-    --line: #36403d;
-    --accent: #7cc4bc;
-    --accent-ink: #0f1514;
-    --accent-soft: #233532;
-    --ok: #79d08f;
-    --bad: #ff9a8f;
-    --warn-soft: #302a1a;
-    --focus: #ffb35c;
-    color-scheme: dark;
-  }
+  --accent-soft: #2a1214;
+  --ok: #5fd38a;
+  --bad: #ff8a80;
+  --warn-soft: #1f1011;
+  --focus: #ffffff;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -53,14 +38,15 @@ h3 { font-size: 1.15rem; }
 
 .site-header {
   position: sticky; top: 0; z-index: 5;
-  background: var(--surface); border-bottom: 1px solid var(--line);
+  background: var(--surface); border-top: 3px solid var(--accent-strong); border-bottom: 1px solid var(--line);
 }
+input, progress { accent-color: var(--accent-strong); }
 .header-inner { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.5rem; padding-top: .6rem; padding-bottom: .6rem; }
 .brand { font-weight: 700; color: var(--text); text-decoration: none; }
 nav ul { display: flex; flex-wrap: wrap; gap: .25rem; list-style: none; margin: 0; padding: 0; }
 nav a { display: block; padding: .35rem .7rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
 nav a:hover { background: var(--accent-soft); }
-nav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+nav a[aria-current="page"] { background: var(--accent-strong); color: var(--accent-ink); }
 .countdown { margin: 0 0 0 auto; font-size: .95rem; color: var(--muted); }
 .countdown strong { color: var(--text); font-size: 1.15rem; }
 @media (max-width: 40rem) {
@@ -75,7 +61,7 @@ nav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink)
 .facts div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: .75rem 1rem; }
 .facts dt { font-size: .85rem; color: var(--muted); }
 .facts dd { margin: 0; font-weight: 600; }
-.note { background: var(--warn-soft); border-radius: 8px; padding: .75rem 1rem; font-size: .95rem; }
+.note { background: var(--warn-soft); border-left: 3px solid var(--accent-strong); border-radius: 8px; padding: .75rem 1rem; font-size: .95rem; }
 
 .section { padding: 2rem 1rem 1rem; }
 .section h1 { font-size: clamp(1.6rem, 4vw, 2rem); margin: 0 0 .75rem; }
@@ -116,8 +102,8 @@ select, input[type="number"], input[type="text"] {
 
 .btn {
   font: inherit; font-weight: 600; cursor: pointer;
-  background: var(--accent); color: var(--accent-ink);
-  border: 1px solid var(--accent); border-radius: 6px; padding: .5rem 1rem;
+  background: var(--accent-strong); color: var(--accent-ink);
+  border: 1px solid var(--accent-strong); border-radius: 6px; padding: .5rem 1rem;
 }
 .btn.ghost { background: transparent; color: var(--accent); }
 .btn:disabled { opacity: .5; cursor: not-allowed; }
@@ -150,7 +136,7 @@ legend { font-weight: 600; margin-bottom: .5rem; padding: 0; }
 /* Roadmap */
 .phase { font-weight: 600; background: var(--accent-soft); padding: .6rem 1rem; border-radius: 8px; }
 .progress-row { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: 1rem 0; }
-progress { width: min(20rem, 100%); height: 1rem; accent-color: var(--accent); }
+progress { width: min(20rem, 100%); height: 1rem; }
 .weeks { list-style: none; padding: 0; display: grid; gap: .75rem; }
 .week { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .75rem 1.25rem; }
 .week.current { border: 2px solid var(--accent); }
@@ -161,6 +147,6 @@ progress { width: min(20rem, 100%); height: 1rem; accent-color: var(--accent); }
 .week li label { font-weight: 400; display: flex; gap: .6rem; align-items: flex-start; padding: .2rem 0; cursor: pointer; }
 .week li input { margin-top: .35rem; width: 1.1rem; height: 1.1rem; flex: none; }
 .week li input:checked + span { text-decoration: line-through; color: var(--muted); }
-.badge { display: inline-block; font-size: .8rem; font-weight: 700; background: var(--accent); color: var(--accent-ink); border-radius: 4px; padding: 0 .4rem; margin-left: .4rem; vertical-align: middle; }
+.badge { display: inline-block; font-size: .8rem; font-weight: 700; background: var(--accent-strong); color: var(--accent-ink); border-radius: 4px; padding: 0 .4rem; margin-left: .4rem; vertical-align: middle; }
 
 .site-footer { border-top: 1px solid var(--line); margin-top: 2rem; padding: 1rem 0 2rem; color: var(--muted); font-size: .9rem; }
