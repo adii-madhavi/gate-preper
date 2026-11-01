@@ -1,7 +1,8 @@
 'use strict';
 
 // ---------- Data ----------
-// Every playlist id below was checked against YouTube oEmbed (title + channel) on 1 Nov 2026.
+// Every playlist id below was checked against YouTube oEmbed (title + channel) on 1 Nov 2026;
+// the calculus and probability playlists were also checked video by video against the CS syllabus.
 const yt = id => 'https://www.youtube.com/playlist?list=' + id;
 const search = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
 const go = slug => 'https://gateoverflow.in/questions/' + slug;
@@ -25,10 +26,13 @@ const SUBJECTS = [
     weight: 'Official: Engineering Maths 13 marks. Past papers: discrete maths 5–6 marks (2023–25)',
     topics: ['Propositional and first-order logic', 'Sets, relations, functions, partial orders, lattices, monoids, groups', 'Graphs: connectivity, matching, colouring', 'Combinatorics: counting, recurrences, generating functions', 'Linear algebra: matrices, determinants, linear systems, eigenvalues, LU decomposition', 'Calculus: limits, continuity, maxima/minima, mean value theorem, integration', 'Probability and statistics: distributions, mean/median/mode/SD, conditional probability, Bayes'],
     videos: [
-      { title: 'Discrete Mathematics', ch: 'Gate Smashers', url: yt('PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3') },
-      { title: 'Discrete Mathematics', ch: 'Neso Academy', url: yt('PLBlnK6fEyqRhqJPDXcvYlLfXPh37L89g3') },
-      { title: 'Linear Algebra (Complete Playlist)', ch: 'Gate Smashers', url: yt('PLxCzCOWd7aiGmXGb0t8YXtWl7qAe6hk25') },
-      { title: 'Probability for GATE CSE', ch: 'Gate Smashers', url: search('Gate Smashers probability GATE CSE'), search: true }
+      { title: 'Discrete Mathematics', ch: 'Gate Smashers', covers: 'Discrete maths', url: yt('PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3') },
+      { title: 'Discrete Mathematics', ch: 'Neso Academy', covers: 'Discrete maths', url: yt('PLBlnK6fEyqRhqJPDXcvYlLfXPh37L89g3') },
+      { title: 'Linear Algebra (Complete Playlist)', ch: 'Gate Smashers', covers: 'Linear algebra', url: yt('PLxCzCOWd7aiGmXGb0t8YXtWl7qAe6hk25') },
+      { title: 'Calculus Engineering Mathematics for GATE by GP Sir', ch: 'Dr. Gajendra Purohit', covers: 'Calculus: limits, continuity, derivatives, maxima/minima, definite integration', url: yt('PLU6SqdYcYsfIiBE81kdYJiXDdZ2JdVKGS') },
+      { title: 'Calculus Complete Playlist | Engineering Mathematics', ch: 'GO Classes for GATE CS', covers: 'Calculus via GATE CS past questions: limits, differentiability, mean value theorem', url: yt('PLIPZ2_p3RNHi3R5H_NDKCB3aGvtLYlLrz') },
+      { title: 'Probability and Statistics (Complete Playlist)', ch: 'Gate Smashers', covers: 'Probability and statistics: Bayes, random variables, binomial/Poisson/normal/exponential', url: yt('PLxCzCOWd7aiFjZP4z1_3Kr3m3J5wu5Q8V') },
+      { title: 'Probability for GATE DA/CS – Complete Lecture Series', ch: 'GO Classes for GATE DA', covers: 'Probability in depth: conditional probability, expectation, variance', url: yt('PLgjejdknTfWMQ-IofDV-3jwQkoVNTOLch') }
     ],
     syllabus: CS_SYLLABUS,
     practice: [{ label: 'Engineering Mathematics past questions (incl. discrete maths)', url: go('mathematics') }]
@@ -226,7 +230,8 @@ function renderSubjects() {
     s.videos.forEach(v => videos.append(el('li', {},
       ext(v.url, v.search ? 'Search: ' + v.title : v.title),
       v.search ? el('span', { class: 'tag', text: 'search link' }) : null,
-      el('br'), el('span', { class: 'channel', text: 'YouTube · ' + v.ch })
+      el('br'), el('span', { class: 'channel', text: 'YouTube · ' + v.ch }),
+      v.covers ? el('span', { class: 'covers', text: v.covers }) : null
     )));
     const more = el('ul');
     more.append(el('li', {}, ext(s.syllabus, 'Official GATE 2027 syllabus (PDF)')));
