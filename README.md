@@ -30,6 +30,6 @@ All content lives in `app.js`:
 
 - Exam dates, paper pattern and syllabus: [GATE 2027 official site, IIT Madras](https://gate2027.iitm.ac.in/)
 - Historical subject marks (2023–2025 papers): [GO Classes analysis](https://www.goclasses.in/blog/a-strategic-analysis-of-subject-wise-weightage-trends-in-gate-cse-2023-2025)
-- Past questions: [GATE Overflow](https://gateoverflow.in/previous-years)
+- Past questions: [GATE Overflow](https://gateoverflow.in/previous-years) (subject pages confirmed via archived copies; the live site blocks automated checks)
 
 The only data the site saves is roadmap ticks, in your browser's `localStorage`.

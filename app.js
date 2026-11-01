@@ -7,7 +7,6 @@ const search = q => 'https://www.youtube.com/results?search_query=' + encodeURIC
 const go = slug => 'https://gateoverflow.in/questions/' + slug;
 const CS_SYLLABUS = 'https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/CS_GATE2027_Syllabus.pdf';
 const GA_SYLLABUS = 'https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/GA_GATE2027_Syllabus.pdf';
-const GO_SUBJECTS = 'https://gateoverflow.in/subject';
 
 const SUBJECTS = [
   {
@@ -32,7 +31,7 @@ const SUBJECTS = [
       { title: 'Probability for GATE CSE', ch: 'Gate Smashers', url: search('Gate Smashers probability GATE CSE'), search: true }
     ],
     syllabus: CS_SYLLABUS,
-    practice: [{ label: 'All GATE CSE subjects, including maths topics', url: GO_SUBJECTS }]
+    practice: [{ label: 'Engineering Mathematics past questions (incl. discrete maths)', url: go('mathematics') }]
   },
   {
     name: 'Digital Logic',
@@ -66,10 +65,7 @@ const SUBJECTS = [
       { title: 'Data Structure', ch: 'Gate Smashers', url: yt('PLxCzCOWd7aiEwaANNt3OqJPVIxwp2ebiT') }
     ],
     syllabus: CS_SYLLABUS,
-    practice: [
-      { label: 'Programming in C past questions', url: go('programming-in-c') },
-      { label: 'All subjects index (find Data Structures)', url: GO_SUBJECTS }
-    ]
+    practice: [{ label: 'Programming and Data Structures past questions', url: go('programming-in-c') }]
   },
   {
     name: 'Algorithms',
@@ -214,11 +210,12 @@ const fmt = d => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short',
 // ---------- Countdown ----------
 function renderCountdown() {
   const days = daysBetween(today(), localDate(FIRST_EXAM));
+  const html = days > 1 ? `<strong>${days}</strong> days until the first exam date (6 Feb 2027)`
+    : days === 1 ? '<strong>1</strong> day until the first exam date (6 Feb 2027)'
+    : days === 0 ? '<strong>Today</strong> is the first exam date (6 Feb 2027)'
+    : 'The GATE 2027 exam window has started (first exam date was 6 Feb 2027)';
   const c = $('#countdown');
-  if (days > 1) c.innerHTML = `<strong>${days}</strong> days until the first exam date (6 Feb 2027)`;
-  else if (days === 1) c.innerHTML = '<strong>1</strong> day until the first exam date (6 Feb 2027)';
-  else if (days === 0) c.innerHTML = '<strong>Today</strong> is the first exam date (6 Feb 2027)';
-  else c.textContent = 'The GATE 2027 exam window has started (first exam date was 6 Feb 2027)';
+  if (c.innerHTML !== html) c.innerHTML = html; // only touch the live region when the day changes
 }
 
 // ---------- Learn ----------
@@ -311,8 +308,9 @@ function tick() {
   if (!t) return;
   t.textContent = `Time left: ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
   t.classList.toggle('low', left <= 120);
-  if (left === 300) $('#timer-alert').textContent = '5 minutes left';
-  if (left === 60) $('#timer-alert').textContent = '1 minute left';
+  // Background tabs throttle setInterval, so compare against thresholds instead of exact seconds.
+  const warn = left <= 60 ? '1 minute left' : left <= 300 ? '5 minutes left' : '';
+  if (warn && $('#timer-alert').textContent !== warn) $('#timer-alert').textContent = warn;
   if (left === 0) mockFinish(true);
 }
 
