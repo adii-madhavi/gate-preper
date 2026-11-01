@@ -82,11 +82,20 @@ nav a[aria-current="page"] { background: var(--accent-strong); color: var(--acce
 .subject > summary h2 { display: inline; margin: 0; font-size: 1.15rem; }
 .subject > summary .weight { color: var(--muted); font-size: .95rem; }
 .subject[open] > summary { border-bottom: 1px solid var(--line); }
-.subject-body { padding: .5rem 1.25rem 1rem; display: grid; gap: 0 2rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.subject-body { padding: .5rem 1.25rem 1rem; display: grid; gap: 0 2rem; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+@media (max-width: 48rem) { .subject-body { grid-template-columns: 1fr; } }
 .subject-body h3 { margin: .75rem 0 .25rem; font-size: 1rem; }
 .subject-body ul { margin: 0; padding-left: 1.2rem; }
 .channel, .provider, .tag { font-size: .85rem; color: var(--muted); }
 .covers { display: block; font-size: .85rem; color: var(--text); }
+.syllabus h4 { margin: .9rem 0 .25rem; color: var(--accent); font-size: .95rem; text-transform: uppercase; letter-spacing: .04em; }
+.topic-list { padding-left: 1.4rem; margin: 0; }
+.topic-list li { margin-bottom: .6rem; }
+.topic { display: block; font-weight: 600; }
+.topic-links, .task-links { display: block; font-size: .875rem; color: var(--muted); }
+.task-links { margin: -.1rem 0 .3rem 1.7rem; }
+.topic-links .label { color: var(--muted); }
+.week-group { font-size: 1rem; margin: .75rem 0 .1rem; color: var(--accent); }
 .subject-body li { margin-bottom: .35rem; }
 .tag { border: 1px solid var(--line); border-radius: 4px; padding: 0 .3rem; margin-left: .25rem; }
 
