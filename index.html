@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GATE CSE 2027 Study Hub – Free Videos, Practice, Mock Test &amp; Roadmap</title>
+  <meta name="description" content="Free GATE 2027 Computer Science (CS) preparation hub: subject-wise syllabus, clear video playlists, past-question links, a timed sample mock test and a week-by-week roadmap to the February 2027 exam.">
+  <meta name="theme-color" content="#1f5f5b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f5f5b'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" id="top">GATE CSE 2027 Study Hub</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#learn">Learn</a></li>
+          <li><a href="#practice">Practice</a></li>
+          <li><a href="#mock">Mock Test</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
+      </nav>
+      <p class="countdown" id="countdown" aria-live="polite">Calculating days until the first exam date…</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="wrap intro" aria-labelledby="intro-h">
+      <h1 id="intro-h">Prepare for GATE 2027 Computer Science, one subject at a time</h1>
+      <p>Free, organised study resources for the GATE 2027 CS paper: what to study, clear videos, past questions, a short timed practice test and a roadmap to the exam.</p>
+      <dl class="facts">
+        <div><dt>Exam days</dt><dd>6, 7, 13, 14, 20 &amp; 21 Feb 2027</dd></div>
+        <div><dt>Paper</dt><dd>65 questions · 100 marks · 3 hours</dd></div>
+        <div><dt>Marks split</dt><dd>General Aptitude 15 · Engineering Maths 13 · CS subjects 72</dd></div>
+        <div><dt>Question types</dt><dd>MCQ, MSQ, NAT · −1/3 or −2/3 only for wrong MCQs</dd></div>
+      </dl>
+      <p class="note">Your CS paper date and session will be announced by the organisers; 6 Feb 2027 is only the first day of the exam window. Dates, syllabus and pattern can change. Always check the <a href="https://gate2027.iitm.ac.in/">official GATE 2027 website (IIT Madras)</a>, including its <a href="https://gate2027.iitm.ac.in/question_paper_pattern">question paper pattern</a> and <a href="https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/CS_GATE2027_Syllabus.pdf">revised CS syllabus (PDF)</a>.</p>
+    </section>
+
+    <section id="learn" class="wrap section" aria-labelledby="learn-h" tabindex="-1">
+      <h2 id="learn-h">Learn</h2>
+      <p>Topics follow the official GATE 2027 CS and GA syllabi. Open a subject to see its key topics, video playlists and practice links.</p>
+      <p class="note"><strong>About the marks figures:</strong> GATE does not fix marks per CS subject. Ranges below are <em>historical</em> marks per paper from the <a href="https://www.goclasses.in/blog/a-strategic-analysis-of-subject-wise-weightage-trends-in-gate-cse-2023-2025">GO Classes analysis of the 2023–2025 GATE CSE papers</a>; they describe past papers and do not predict 2027. That analysis reports marks, not question counts, so question counts are not shown per subject.</p>
+      <p class="note">Video links go to free YouTube playlists from independent educators; none is endorsed by GATE. Links marked “search” open a YouTube search because a single playlist could not be verified.</p>
+      <div class="subjects" id="subjects"></div>
+    </section>
+
+    <section id="practice" class="wrap section" aria-labelledby="practice-h" tabindex="-1">
+      <h2 id="practice-h">Practice</h2>
+      <div class="card">
+        <label for="practice-subject">Choose a subject</label>
+        <select id="practice-subject"></select>
+        <div id="practice-links" aria-live="polite"></div>
+      </div>
+
+      <h3>Full past papers</h3>
+      <ul class="links">
+        <li><a href="https://gateoverflow.in/previous-years">Previous GATE CSE papers by year, with discussed answers</a> <span class="provider">GATE Overflow (external)</span></li>
+        <li><a href="https://github.com/GATEOverflow/GO-PDFs/releases">Free previous-year question PDFs</a> <span class="provider">GATE Overflow on GitHub (external)</span></li>
+      </ul>
+
+      <h3>Sample questions</h3>
+      <p>Original questions written for this site. Try each one, then open the answer.</p>
+      <div id="samples"></div>
+    </section>
+
+    <section id="mock" class="wrap section" aria-labelledby="mock-h" tabindex="-1">
+      <h2 id="mock-h">Mock Test</h2>
+      <div id="mock-root"></div>
+    </section>
+
+    <section id="roadmap" class="wrap section" aria-labelledby="roadmap-h" tabindex="-1">
+      <h2 id="roadmap-h">Roadmap to February 2027</h2>
+      <p id="phase" class="phase"></p>
+      <p>A week-by-week plan from November 2026 to the end of the exam window. It assumes you have seen most subjects once. If you are starting from zero, cover the higher-weight subjects first (programming and data structures, COA, OS, CN, TOC, maths) and keep the rest for revision. Tick tasks as you finish them; progress is saved only in this browser.</p>
+      <div class="progress-row">
+        <progress id="rm-progress" max="1" value="0" aria-labelledby="rm-progress-text"></progress>
+        <span id="rm-progress-text"></span>
+        <button type="button" class="btn ghost" id="rm-reset">Clear ticks</button>
+      </div>
+      <ol class="weeks" id="weeks"></ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Independent free study site. Not affiliated with GATE, IISc, the IITs or any channel or coaching provider linked here. Verify all exam details on the <a href="https://gate2027.iitm.ac.in/">official GATE 2027 website</a>.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
